@@ -98,7 +98,7 @@ namespace GC_Car_Dealership.Controllers
             }
             else
             {
-                sendObj.Add("no data", "");
+                sendObj.Add("cars", null);
                 return sendObj;
             }
         }

@@ -113,7 +113,16 @@ namespace GC_Car_Dealership.Controllers
 
                     carListAgain.Add(newCar);
                 }
-                return View(carListAgain);
+
+                if (carListAgain.Count != 0)
+                {
+                    return View(carListAgain);
+                }
+                else
+                {
+                    ViewBag.NoData = "Search returned no results";
+                    return View(carListAgain);
+                }
             }
             else
             {
