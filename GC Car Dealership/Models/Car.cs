@@ -11,13 +11,23 @@ namespace GC_Car_Dealership.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Car
     {
+        [Required]
         public string Make { get; set; }
+
+        [Required]
         public string Model { get; set; }
+
+        [Required]
         public string Year { get; set; }
+
+        [Required]
         public string Color { get; set; }
+
+        [Key]
         public int CarID { get; set; }
     }
 }

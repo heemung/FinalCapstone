@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using GC_Car_Dealership.Models;
 
 namespace GC_Car_Dealership
 {
