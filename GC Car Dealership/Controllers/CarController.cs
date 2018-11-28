@@ -27,12 +27,14 @@ namespace GC_Car_Dealership.Controllers
 
             foreach(Car c in allCarsList)
             {
-                JObject temp = new JObject();
-                temp["id"] = c.CarID - 1000;
-                temp["make"] = c.Make;
-                temp["model"] = c.Model;
-                temp["color"] = c.Color;
-                temp["year"] = c.Year;
+                JObject temp = new JObject
+                {
+                    ["id"] = c.CarID - 1000,
+                    ["make"] = c.Make,
+                    ["model"] = c.Model,
+                    ["color"] = c.Color,
+                    ["year"] = c.Year
+                };
 
                 arrayForCars.Add(temp);
             }
@@ -42,33 +44,56 @@ namespace GC_Car_Dealership.Controllers
 
            // return Json(objectNameHere, JsonRequestBehavior.AllowGet);
         }
+
         [HttpGet]
         public JObject SearchCars(string make, string model, string color, string year)
         {
             List<Car> searchCarList = new List<Car>();
             JObject sendObj = new JObject();
-            JArray arrayForCars = new JArray();
-            string searchString;
+            JArray arraySearchCars = new JArray();
 
+            IQueryable<Car> carQuery = carORM.Cars.AsQueryable();
 
+                if (model != null)
+                {
+                carQuery = carQuery.Where(x => x.Model == model);
+                }
+
+                if (make != null)
+                {
+                carQuery = carQuery.Where(x => x.Make == make);
+                }
+
+                if (color != null)
+                {
+                carQuery = carQuery.Where(x => x.Color == color);
+                }
+
+                if (year != null)
+                {
+                carQuery = carQuery.Where(x => x.Year == year);
+                }
+
+            searchCarList = carQuery.ToList();
             //searchCarList = carORM.Cars.Where(x => x.searchString == )
-
 
             if (searchCarList.Count != 0)
             {
-                foreach (Car c in searchCarList)
+                foreach (var c in searchCarList)
                 {
-                    JObject temp = new JObject();
-                    temp["id"] = c.CarID - 1000;
-                    temp["make"] = c.Make;
-                    temp["model"] = c.Model;
-                    temp["color"] = c.Color;
-                    temp["year"] = c.Year;
+                    JObject temp = new JObject
+                    {
+                        ["id"] = c.CarID - 1000,
+                        ["make"] = c.Make,
+                        ["model"] = c.Model,
+                        ["color"] = c.Color,
+                        ["year"] = c.Year
+                    };
 
-                    arrayForCars.Add(temp);
+                    arraySearchCars.Add(temp);
                 }
 
-                sendObj.Add("cars", arrayForCars);
+                sendObj.Add("cars", arraySearchCars);
                 return sendObj;
             }
             else

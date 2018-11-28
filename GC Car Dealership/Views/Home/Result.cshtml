@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "Result";
+}
+
+<h2>Result</h2>
+
+@model IEnumerable<GC_Car_Dealership.Models.Car>
+
+
+@foreach (var searchResults in Model)
+{
+    <p>
+        @searchResults.CarID
+        @searchResults.Make
+        @searchResults.Model
+        @searchResults.Year
+        @searchResults.Color
+    </p>
+}
